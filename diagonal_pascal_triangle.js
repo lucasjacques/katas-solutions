@@ -1,8 +1,4 @@
 const diagonal = (n, p) => {
-	if (p === 0) {
-		return n+1;
-	}
-
 	const diagonals = [Array(n+1).fill(1)];
 	for (let i = 1; i <= p; i++) {
 		diagonals[i] = nextDiagonal(diagonals[i-1]);
@@ -18,4 +14,4 @@ const nextDiagonal = (previousDiagonal) => {
 	return result;
 }
 
-console.log(diagonal(7, 1));
+console.log(diagonal(7, 0));
