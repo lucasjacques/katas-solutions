@@ -1,11 +1,25 @@
 // DOING
-
-snail = function(arrays) {
-	return arrays.reduce(function(acc, element){
+const snail = snailMap => {
+	return snailMap.reduce(function(acc, element){
 		console.log('debug', acc, element);
-		if()
 		return acc.concat(element);
 	}, []);
+}
+
+const goRight = (snailMap, snailPos) => {
+
+}
+
+const goDown = (snailMap, snailPos) => {
+
+}
+
+const goLeft = (snailMap, snailPos) => {
+
+}
+
+const goUp = (snailMap, snailPos) => {
+
 }
 
 console.log(snail([[1,2],[3,4]]));
