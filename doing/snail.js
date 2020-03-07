@@ -1,28 +1,58 @@
 // DOING
+
+const RIGHT_DIRECTION = 0, DOWN_DIRECTION = 1, LEFT_DIRECTION = 2, UP_DIRECTION = 3;
+
 const snail = snailMap => {
-	return snailMap.reduce(function(acc, element){
-		console.log('debug', acc, element);
+	const currentSnail = {
+		position : [0,0],
+		direction : RIGHT_DIRECTION,
+		trail : [],
+		map : snailMap
+	};
+
+	const goalLength = currentSnail.map.reduce(function(acc, element){
 		return acc.concat(element);
-	}, []);
+	}, []).length;
+
+	while (currentSnail.trail.length < goalLength) {
+		switch (currentSnail.direction) {
+			case RIGHT_DIRECTION:
+				goRight(currentSnail);
+				break;
+			case DOWN_DIRECTION:
+				goDown(currentSnail);
+				break;
+			case LEFT_DIRECTION:
+				goLeft(currentSnail);
+				break;
+			case UP_DIRECTION:
+				goUp(currentSnail);
+				break;
+		}
+
+		currentSnail.direction = ++currentSnail.direction % 4;
+		currentSnail.trail.push(1);
+	}
+	return currentSnail.trail;
 }
 
-const goRight = (snailMap, snailPos) => {
-
+const goRight = (currentSnail) => {
+	console.log('RIGHT_DIRECTION');
 }
 
-const goDown = (snailMap, snailPos) => {
-
+const goDown = (currentSnail) => {
+	console.log('DOWN_DIRECTION');
 }
 
-const goLeft = (snailMap, snailPos) => {
-
+const goLeft = (currentSnail) => {
+	console.log('LEFT_DIRECTION');
 }
 
-const goUp = (snailMap, snailPos) => {
-
+const goUp = (currentSnail) => {
+	console.log('UP_DIRECTION');
 }
 
-console.log(snail([[1,2],[3,4]]));
+console.log(snail([[1,2],[3,4,5,6,7,8]]));
 
 /* THINKING HAT
  * 1 - 1 right - shape: dot 
