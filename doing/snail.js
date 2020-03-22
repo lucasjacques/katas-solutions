@@ -7,10 +7,10 @@ const snail = snailMap => {
 		position : [0,0],
 		direction : RIGHT_DIRECTION,
 		trail : [],
-		map : snailMap
+		currentMap : snailMap
 	};
 
-	const goalLength = currentSnail.map.reduce(function(acc, element){
+	const goalLength = currentSnail.currentMap.reduce(function(acc, element){
 		return acc.concat(element);
 	}, []).length;
 
@@ -31,25 +31,36 @@ const snail = snailMap => {
 		}
 
 		currentSnail.direction = ++currentSnail.direction % 4;
-		currentSnail.trail.push(1);
 	}
 	return currentSnail.trail;
 }
 
-const goRight = (currentSnail) => {
+const goRight = currentSnail => {
 	console.log('RIGHT_DIRECTION');
+	const movementTrail = currentSnail.currentMap[0];
+	currentSnail.trail = currentSnail.trail.concat(movementTrail);
+	currentSnail.currentMap.shift();
 }
 
-const goDown = (currentSnail) => {
+const goDown = currentSnail => {
 	console.log('DOWN_DIRECTION');
+	const movementTrail = getColumn(currentSnail.currentMap);
+	currentSnail.trail = currentSnail.trail.concat(movementTrail);
 }
 
-const goLeft = (currentSnail) => {
+const goLeft = currentSnail => {
 	console.log('LEFT_DIRECTION');
 }
 
-const goUp = (currentSnail) => {
+const goUp = currentSnail => {
 	console.log('UP_DIRECTION');
+}
+
+
+const getColumn = matrix => {
+	return matrix.map(elem => {
+		return elem.pop();
+	});
 }
 
 console.log(snail([[1,2],[3,4,5,6,7,8]]));
