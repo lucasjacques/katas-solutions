@@ -7,19 +7,8 @@ const burner = (c=0, h=0, o=0) => {
     'methane':0
   }
   
-  if (elementsStash.h >= 2 && elementsStash.o >= 1) {
-    const excessH = elementsStash.h - (elementsStash.o*2)
-    if (excessH >= 0) {
-      substances['water'] = elementsStash.o
-      elementsStash.h -= elementsStash.o*2
-      elementsStash.o -= elementsStash.o
-    } else if (excessH < 0) {
-      const waterQuantity = Math.floor(elementsStash.h/2)
-      substances['water'] = waterQuantity
-      elementsStash.h -= waterQuantity*2
-      elementsStash.o -= waterQuantity
-    }
-  }
+  substances.water = consumeWater(elementsStash)
+
   if (elementsStash.c >= 1 && elementsStash.o >= 2) {
     const excessO = elementsStash.o - (elementsStash.c*2)
     if (excessO >= 0) {
@@ -50,7 +39,25 @@ const burner = (c=0, h=0, o=0) => {
   return [substances.water, substances.co2, substances.methane];
 }
 
-console.log(burner(100,100,0))
+const consumeWater = (elementsStash) => {
+  let water = 0
+  if (elementsStash.h >= 2 && elementsStash.o >= 1) {
+    const excessH = elementsStash.h - (elementsStash.o*2)
+    if (excessH >= 0) {
+      water = elementsStash.o
+      elementsStash.h -= elementsStash.o*2
+      elementsStash.o -= elementsStash.o
+    } else if (excessH < 0) {
+      water = Math.floor(elementsStash.h/2)
+      elementsStash.h -= water*2
+      elementsStash.o -= water
+    }
+  }
+  return water
+}
+
+
+console.log(burner(939, 3, 694))
 
 /* TESTS
  * burner(45, 11, 100), [5, 45, 0]
