@@ -9,20 +9,7 @@ const burner = (c=0, h=0, o=0) => {
   
   substances.water = consumeWater(elementsStash)
   substances.co2 = consumeCo2(elementsStash)
-
-  if (elementsStash.c >= 1 && elementsStash.h >= 4) {
-    const excessH = elementsStash.h - (elementsStash.c*4)
-    if (excessH >= 0) {
-      substances['methane'] = elementsStash.c
-      elementsStash.h -= elementsStash.c*4
-      elementsStash.c -= elementsStash.c
-    } else if (excessH < 0) {
-      const methaneQuantity = Math.floor(elementsStash.h/4)
-      substances['methane'] = methaneQuantity
-      elementsStash.h -= methaneQuantity*4
-      elementsStash.c -= methaneQuantity
-    }
-  }
+  substances.methane = consumeMethane(elementsStash)
 
   return [substances.water, substances.co2, substances.methane];
 }
@@ -59,6 +46,23 @@ const consumeCo2 = (elementsStash) => {
     }
   }
   return co2
+}
+
+const consumeMethane = (elementsStash) => {
+  let methane = 0
+  if (elementsStash.c >= 1 && elementsStash.h >= 4) {
+    const excessH = elementsStash.h - (elementsStash.c*4)
+    if (excessH >= 0) {
+      methane = elementsStash.c
+      elementsStash.h -= elementsStash.c*4
+      elementsStash.c -= elementsStash.c
+    } else if (excessH < 0) {
+      methane = Math.floor(elementsStash.h/4)
+      elementsStash.h -= methane*4
+      elementsStash.c -= methane
+    }
+  }
+  return methane
 }
 
 console.log(burner(215, 41, 82100))
