@@ -2,16 +2,38 @@ const burner = (c=0, h=0, o=0) => {
   const elementsStash = { c, h, o }
 
   const substances = {
-    'water': 0,
-    'co2':0,
-    'methane':0
+    water: { 
+      generatedMolecules: 0,
+      composedBy: {
+        h:2,
+        o:1
+      } 
+    },
+    co2: { 
+      generatedMolecules: 0,
+      composedBy: {
+        c:1,
+        o:2
+      } 
+    },
+    methane: { 
+      generatedMolecules: 0,
+      composedBy: {
+        c:1,
+        h:4
+      } 
+    }
   }
   
-  substances.water = consumeWater(elementsStash)
-  substances.co2 = consumeCo2(elementsStash)
-  substances.methane = consumeMethane(elementsStash)
+  substances.water.generatedMolecules = consumeWater(elementsStash)
+  substances.co2.generatedMolecules = consumeCo2(elementsStash)
+  substances.methane.generatedMolecules = consumeMethane(elementsStash)
 
-  return [substances.water, substances.co2, substances.methane];
+  return [
+    substances.water.generatedMolecules,
+    substances.co2.generatedMolecules,
+    substances.methane.generatedMolecules
+  ];
 }
 
 const consumeWater = (elementsStash) => {
